@@ -190,7 +190,7 @@ button {
   color: white;
 }
 
-.hero-bg, .footer-cta-bg {
+.footer-cta-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -200,13 +200,37 @@ button {
   z-index: -2;
 }
 
-.hero-overlay, .footer-cta-overlay {
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+.footer-cta-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.95) 100%),
+    rgba(0, 0, 0, 0.3);
   z-index: -1;
 }
 
