@@ -183,7 +183,7 @@ button {
 
 /* ===== HERO ===== */
 .hero {
-  padding: 160px 48px 100px;
+  padding: 200px 48px 140px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -859,7 +859,7 @@ button {
     display: none;
   }
   .hero {
-    padding: 120px 24px 80px;
+    padding: 150px 24px 110px;
   }
   .section {
     padding: 80px 24px;
