@@ -95,8 +95,8 @@ button {
   gap: 48px;
   padding: 0 24px 0 32px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  width: auto;
-  min-width: 600px;
+  width: calc(100% - 48px);
+  max-width: 600px;
 }
 
 .navbar-logo {
@@ -828,7 +828,8 @@ button {
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 0 24px;
+    padding: 0 16px;
+    gap: 12px;
   }
   .navbar-links {
     display: none;
@@ -839,7 +840,8 @@ button {
   .section {
     padding: 80px 24px;
   }
-  .features-grid {
+  .features-grid,
+  .features-bento-grid {
     grid-template-columns: 1fr;
   }
   .whatis-grid {
@@ -867,7 +869,17 @@ button {
     gap: 32px;
   }
   .testimonial-card {
-    min-width: 300px;
+    min-width: 280px;
+    flex: 0 0 280px;
+    padding: 20px;
+  }
+  .terminal-body {
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.75rem;
+  }
+  .terminal-body span {
+    word-break: break-all;
   }
   .footer-cta {
     padding: 80px 24px;

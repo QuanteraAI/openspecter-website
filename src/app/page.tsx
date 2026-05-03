@@ -208,7 +208,10 @@ function TestimonialCard({
       <div className="testimonial-author">
         <div className="testimonial-avatar">{initials}</div>
         <div className="testimonial-meta">
-          <div className="testimonial-name">{testimonial.user}</div>
+          <div className="testimonial-name">
+            {testimonial.user.slice(0, -4)}
+            <span style={{ filter: "blur(4px)", userSelect: "none", opacity: 0.5 }}>{testimonial.user.slice(-4)}</span>
+          </div>
           <div className="testimonial-source">r/legaltech · Reddit</div>
         </div>
       </div>
@@ -227,7 +230,7 @@ export default function Home() {
     fetch("https://api.github.com/repos/QuanteraAI/OpenSpecter")
       .then((res) => res.json())
       .then((data) => {
-        if (data.stargazers_count) {
+        if (typeof data.stargazers_count === "number") {
           const count = data.stargazers_count;
           const formatted = count > 999 ? (count / 1000).toFixed(1) + "k" : count.toString();
           setStars(formatted);
