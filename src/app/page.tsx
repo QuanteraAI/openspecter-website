@@ -344,8 +344,8 @@ export default function Home() {
               <span>
                 <span className="prompt">$</span>
                 <span className="command">
-                  git clone https://github.com/QuanteraAI/OpenS
-                  <span style={{ filter: "blur(4px)", userSelect: "none", opacity: 0.5 }}>pecter.git</span>
+                  git clone https://github.com/Qua
+                  <span style={{ filter: "blur(4px)", userSelect: "none", opacity: 0.5 }}>nteraAI/OpenSpecter.git</span>
                 </span>
               </span>
               <button className="terminal-copy" onClick={handleComingSoon} aria-label="Copy command">
