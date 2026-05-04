@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 /* ───────── Testimonials Data ───────── */
 const testimonials = [
@@ -277,11 +278,18 @@ export default function Home() {
   }, []);
 
   const [copied, setCopied] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const handleCopy = () => {
     navigator.clipboard.writeText("git clone https://github.com/QuanteraAI/OpenSpecter.git");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleComingSoon = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setToastMessage("Coming soon");
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
   // Duplicate testimonials for infinite scroll
@@ -298,7 +306,7 @@ export default function Home() {
         </div>
         
         <div className="navbar-cta">
-          <a href="https://github.com/QuanteraAI/OpenSpecter" target="_blank" rel="noopener noreferrer" className="navbar-cta-btn">
+          <a href="#" onClick={handleComingSoon} className="navbar-cta-btn">
             <StarIcon /> Star {stars}
           </a>
         </div>
@@ -306,7 +314,16 @@ export default function Home() {
 
       {/* ──── Hero ──── */}
       <section className="hero" id="hero">
-        <div className="hero-bg"></div>
+        <div className="hero-bg">
+          <Image 
+            src="/hero-bg.png" 
+            alt="Hero background" 
+            fill 
+            priority 
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            quality={90}
+          />
+        </div>
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="hero-badge">
@@ -575,9 +592,8 @@ export default function Home() {
           </div>
           <div className="footer-links" style={{ display: "flex", gap: 24 }}>
             <a
-              href="https://github.com/QuanteraAI/OpenSpecter"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={handleComingSoon}
               style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", transition: "color 0.2s" }}
             >
               View on GitHub
@@ -585,6 +601,11 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* ──── Toast Notification ──── */}
+      <div className={`toast-notification ${toastMessage ? "visible" : ""}`}>
+        {toastMessage}
+      </div>
     </>
   );
 }
