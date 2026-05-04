@@ -236,14 +236,6 @@ function TestimonialCard({
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const [stars, setStars] = useState<string>("1.2k");
-  const [useCasesIndex, setUseCasesIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setUseCasesIndex((current) => current + 1);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     fetch("https://api.github.com/repos/QuanteraAI/OpenSpecter")
@@ -508,28 +500,12 @@ export default function Home() {
             <p>Law firms should pick OpenSpecter for</p>
           </div>
           <div className="use-cases-right">
-            <div
-              className="use-cases-list"
-              style={{ transform: `translateY(calc(150px - 30px - ${useCasesIndex * 60}px))` }}
-            >
-              {Array.from({ length: 50 }).map((_, i) => {
-                const word = useCaseWords[i % useCaseWords.length];
-                const isActive = i === useCasesIndex;
-                const distance = Math.abs(i - useCasesIndex);
-                // Fades out items that are further away from the active index
-                const opacity = isActive ? 1 : Math.max(0.05, 1 - distance * 0.35);
-                const scale = isActive ? 1 : 0.95;
-
-                return (
-                  <div
-                    key={i}
-                    className="use-cases-item"
-                    style={{ opacity, transform: `scale(${scale})` }}
-                  >
-                    {word}
-                  </div>
-                );
-              })}
+            <div className="use-cases-list">
+              {[...useCaseWords, useCaseWords[0]].map((word, i) => (
+                <div key={i} className="use-cases-item">
+                  {word}
+                </div>
+              ))}
             </div>
           </div>
         </div>
