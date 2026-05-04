@@ -277,14 +277,7 @@ export default function Home() {
     return () => observerRef.current?.disconnect();
   }, []);
 
-  const [copied, setCopied] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText("git clone https://github.com/QuanteraAI/OpenSpecter.git");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const handleComingSoon = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -351,11 +344,12 @@ export default function Home() {
               <span>
                 <span className="prompt">$</span>
                 <span className="command">
-                  git clone https://github.com/QuanteraAI/OpenSpecter.git
+                  git clone https://github.com/QuanteraAI/OpenS
+                  <span style={{ filter: "blur(4px)", userSelect: "none", opacity: 0.5 }}>pecter.git</span>
                 </span>
               </span>
-              <button className="terminal-copy" onClick={handleCopy} aria-label="Copy command">
-                {copied ? <CheckIcon /> : <CopyIcon />}
+              <button className="terminal-copy" onClick={handleComingSoon} aria-label="Copy command">
+                <CopyIcon />
               </button>
             </div>
           </div>
