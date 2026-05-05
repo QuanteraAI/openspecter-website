@@ -637,72 +637,142 @@ button {
 .badge { background: #eff6ff; color: #2563eb; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 500; }
 .dot { display: inline-block; min-width: 6px; width: 6px; height: 6px; background: #10b981; border-radius: 50%; }
 
-/* ===== USE CASES (SLOT MACHINE) ===== */
-.use-cases-section {
+/* ===== JURISDICTIONS & SHEPARDIZING ===== */
+.jurisdictions-section {
   background: var(--bg-primary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 120px 48px;
+  border-top: 1px solid var(--border-light);
 }
 
-.use-cases-container {
+.jurisdictions-container {
   display: flex;
   width: 100%;
-  max-width: 1000px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 80px;
+  align-items: flex-start;
 }
 
-.use-cases-left {
+.jurisdictions-left {
   flex: 1;
+  min-width: 320px;
 }
 
-.use-cases-left p {
-  font-family: var(--font-secondary);
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #a0a0b0;
-  max-width: 250px;
-  line-height: 1.5;
-}
-
-.use-cases-right {
-  flex: 2;
-  height: 60px; /* Only show one item at a time */
-  position: relative;
-  overflow: hidden;
-  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-}
-
-.use-cases-list {
-  animation: tickerLoop 14s infinite;
-}
-
-@keyframes tickerLoop {
-  0%, 12% { transform: translateY(0); }
-  14.28%, 26.28% { transform: translateY(-60px); }
-  28.57%, 40.57% { transform: translateY(-120px); }
-  42.85%, 54.85% { transform: translateY(-180px); }
-  57.14%, 69.14% { transform: translateY(-240px); }
-  71.42%, 83.42% { transform: translateY(-300px); }
-  85.71%, 97.71% { transform: translateY(-360px); }
-  100% { transform: translateY(-420px); }
-}
-
-.use-cases-item {
-  height: 60px;
-  display: flex;
-  align-items: center;
+.jurisdictions-left h2 {
   font-family: var(--font-primary);
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.jurisdictions-subtitle {
+  font-family: var(--font-secondary);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.jurisdictions-stats {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-family: var(--font-primary);
+  font-size: 2.2rem;
   font-weight: 500;
   color: var(--text-primary);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  transform-origin: center left;
-  white-space: nowrap;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+.jurisdictions-doctypes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.doctype-tag {
+  font-family: var(--font-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent-blue);
+  background: var(--accent-blue-bg);
+  padding: 4px 12px;
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+}
+
+.jurisdictions-right {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.jurisdiction-group h4 {
+  font-family: var(--font-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  margin-bottom: 10px;
+}
+
+.jurisdiction-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.j-chip {
+  font-family: var(--font-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  padding: 6px 14px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.j-chip:hover {
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.j-chip em {
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.j-chip.small {
+  font-size: 0.75rem;
+  padding: 4px 10px;
 }
 
 /* ===== WHY OPEN SOURCE ===== */
@@ -939,21 +1009,15 @@ button {
   .comparison-row {
     grid-template-columns: 1fr;
   }
-  .use-cases-container {
+  .jurisdictions-container {
     flex-direction: column;
-    text-align: center;
+    gap: 48px;
+  }
+  .jurisdictions-left {
+    min-width: unset;
+  }
+  .jurisdictions-stats {
     gap: 24px;
-  }
-  .use-cases-left p {
-    max-width: 100%;
-  }
-  .use-cases-item {
-    font-size: 2.2rem;
-    justify-content: center;
-    transform-origin: center center;
-  }
-  .use-cases-right {
-    width: 100%;
   }
   .comparison-header {
     grid-template-columns: 1fr;

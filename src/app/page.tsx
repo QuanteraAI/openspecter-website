@@ -129,15 +129,6 @@ const whyOpenSourceItems = [
   },
 ];
 
-const useCaseWords = [
-  "Legal Research",
-  "Deal Management",
-  "Due Diligence",
-  "Fund Formation",
-  "Contract Analysis",
-  "Complex Workflows",
-  "Document Storage",
-];
 
 /* ───────── Components ───────── */
 
@@ -493,19 +484,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──── Use Cases (Slot Machine) ──── */}
-      <section className="use-cases-section section fade-in">
-        <div className="use-cases-container">
-          <div className="use-cases-left">
-            <p>Law firms should pick OpenSpecter for</p>
+      {/* ──── Jurisdictions & Shepardizing ──── */}
+      <section className="jurisdictions-section section fade-in">
+        <div className="jurisdictions-container">
+          <div className="jurisdictions-left">
+            <h2>Every citation. Verified across 178 jurisdictions.</h2>
+            <p className="jurisdictions-subtitle">
+              OpenSpecter cross-references 31 million+ legal documents to ensure every case you cite is still good law. Instant Shepardizing, built into every workflow.
+            </p>
+            <div className="jurisdictions-stats">
+              <div className="stat-item">
+                <span className="stat-number">178</span>
+                <span className="stat-label">Jurisdictions</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">31M+</span>
+                <span className="stat-label">Documents</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">3</span>
+                <span className="stat-label">Source Types</span>
+              </div>
+            </div>
+            <div className="jurisdictions-doctypes">
+              <span className="doctype-tag">Case Law</span>
+              <span className="doctype-tag">Legislation</span>
+              <span className="doctype-tag">Doctrine</span>
+            </div>
           </div>
-          <div className="use-cases-right">
-            <div className="use-cases-list">
-              {[...useCaseWords, useCaseWords[0]].map((word, i) => (
-                <div key={i} className="use-cases-item">
-                  {word}
-                </div>
-              ))}
+          <div className="jurisdictions-right">
+            <div className="jurisdiction-group">
+              <h4>Powerhouses</h4>
+              <div className="jurisdiction-chips">
+                <span className="j-chip">🇺🇸 US <em>15.6M</em></span>
+                <span className="j-chip">🇫🇷 France <em>2.7M</em></span>
+                <span className="j-chip">🇦🇹 Austria <em>1.4M</em></span>
+                <span className="j-chip">🇨🇭 Switzerland <em>947k</em></span>
+                <span className="j-chip">🇧🇷 Brazil <em>881k</em></span>
+              </div>
+            </div>
+            <div className="jurisdiction-group">
+              <h4>Common Law</h4>
+              <div className="jurisdiction-chips">
+                {["🇺🇸 US", "🇬🇧 UK", "🇮🇳 India", "🇦🇺 Australia", "🇨🇦 Canada", "🇸🇬 Singapore", "🇳🇿 NZ", "🇭🇰 HK", "🇲🇾 Malaysia", "🇵🇰 Pakistan", "🇿🇦 South Africa", "🇮🇪 Ireland"].map((c, i) => (
+                  <span key={i} className="j-chip small">{c}</span>
+                ))}
+              </div>
+            </div>
+            <div className="jurisdiction-group">
+              <h4>Civil Law</h4>
+              <div className="jurisdiction-chips">
+                {["🇫🇷 France", "🇩🇪 Germany", "🇮🇹 Italy", "🇪🇸 Spain", "🇧🇪 Belgium", "🇳🇱 Netherlands", "🇵🇹 Portugal", "🇵🇱 Poland", "🇦🇹 Austria", "🇨🇭 Switzerland", "🇧🇷 Brazil", "🇦🇷 Argentina", "🇲🇽 Mexico"].map((c, i) => (
+                  <span key={i} className="j-chip small">{c}</span>
+                ))}
+              </div>
+            </div>
+            <div className="jurisdiction-group">
+              <h4>Supranational</h4>
+              <div className="jurisdiction-chips">
+                <span className="j-chip">🌐 INTL <em>494k</em></span>
+                <span className="j-chip">🇺🇳 UN <em>285k</em></span>
+                <span className="j-chip">🏛️ CoE <em>118k</em></span>
+                <span className="j-chip">🇪🇺 EU <em>115k</em></span>
+                <span className="j-chip">📊 OECD <em>452</em></span>
+              </div>
             </div>
           </div>
         </div>
