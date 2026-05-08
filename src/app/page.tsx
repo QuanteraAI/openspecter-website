@@ -110,24 +110,6 @@ const features = [
   }
 ];
 
-const whyOpenSourceItems = [
-  {
-    title: "Democratizing Access",
-    desc: "Enterprise legal AI costs thousands per seat, locking out solo practitioners and small firms. Open source removes the financial barrier to state-of-the-art tools.",
-  },
-  {
-    title: "Absolute Data Sovereignty",
-    desc: "Client privilege demands privacy. By self-hosting an open-source platform, your data never leaves your infrastructure. No third-party data processing.",
-  },
-  {
-    title: "Community-Audited Integrity",
-    desc: "Law is complex and evolving. An open-source codebase allows legal professionals and engineers to transparently audit, verify, and improve the logic together.",
-  },
-  {
-    title: "Zero Vendor Lock-in",
-    desc: "Proprietary models change rules and pricing without warning. Open architecture lets you bring any LLM, giving you absolute control over your practice's technology.",
-  },
-];
 
 
 /* ───────── Components ───────── */
@@ -221,12 +203,78 @@ function TestimonialCard({
   );
 }
 
+function ShepardizingMockup() {
+  const [step, setStep] = useState(0);
+  const [status, setStatus] = useState<"checking" | "good">("checking");
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => setStep(1), 1000);
+    const timer2 = setTimeout(() => setStep(2), 2500);
+    const timer3 = setTimeout(() => {
+      setStep(3);
+      setStatus("good");
+    }, 4000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
+  }, []);
+
+  return (
+    <div className="shepardizing-mockup">
+      <div className="shepardizing-header">
+        <div className="shepardizing-citation">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Miranda v. Arizona <em>384 U.S. 436 (1966)</em>
+        </div>
+        <div className={`shepardizing-status-tag ${status === "good" ? "good" : "caution"}`}>
+          {status === "good" ? (
+            <><CheckIcon /> GOOD LAW</>
+          ) : (
+            <>VERIFYING...</>
+          )}
+        </div>
+      </div>
+      <div className="shepardizing-content">
+        <div className={`shepardizing-step ${step >= 0 ? "active" : ""} ${step > 0 ? "completed" : ""}`}>
+          <div className="shepardizing-step-icon">
+            {step > 0 ? <CheckIcon /> : "1"}
+          </div>
+          <div className="shepardizing-step-text">
+            <h5>Analyzing Citation</h5>
+            <p>Identifying case ID and primary jurisdiction...</p>
+          </div>
+        </div>
+        <div className={`shepardizing-step ${step >= 1 ? "active" : ""} ${step > 1 ? "completed" : ""}`}>
+          <div className="shepardizing-step-icon">
+            {step > 1 ? <CheckIcon /> : "2"}
+          </div>
+          <div className="shepardizing-step-text">
+            <h5>Cross-referencing Database</h5>
+            <p>Scanning 15.6M US case law records for subsequent history...</p>
+          </div>
+        </div>
+        <div className={`shepardizing-step ${step >= 2 ? "active" : ""} ${step > 2 ? "completed" : ""}`}>
+          <div className="shepardizing-step-icon">
+            {step > 2 ? <CheckIcon /> : "3"}
+          </div>
+          <div className="shepardizing-step-text">
+            <h5>Verifying Treatment</h5>
+            <p>Checking for negative treatment, overrules, or limitations...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /* ───────── Main Page ───────── */
 
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [stars, setStars] = useState<string>("1.2k");
+  const [stars, setStars] = useState<string>("");
 
   useEffect(() => {
     fetch("https://api.github.com/repos/QuanteraAI/OpenSpecter")
@@ -277,13 +325,13 @@ export default function Home() {
       {/* ──── Navbar ──── */}
       <nav className="navbar" id="navbar">
         <div className="navbar-logo">
-          <BrandLogo style={{ width: 36, height: 36, marginRight: 6 }} />
+          <BrandLogo style={{ width: 32, height: 32 }} />
           OpenSpecter
         </div>
         
-        <div className="navbar-cta">
-          <a href="#" onClick={handleComingSoon} className="navbar-cta-btn">
-            <StarIcon /> Star {stars}
+        <div className="navbar-cta" style={{ marginLeft: "auto" }}>
+          <a href="https://github.com/QuanteraAI/OpenSpecter" target="_blank" rel="noopener noreferrer" className="navbar-cta-btn">
+            <StarIcon /> {stars ? `Star ${stars}` : "Star on GitHub"}
           </a>
         </div>
       </nav>
@@ -304,7 +352,7 @@ export default function Home() {
         <div className="hero-content">
           <div className="hero-badge">
             <span className="dot"></span>
-            Open Source · MIT Licensed
+            Source Available · Free Forever
           </div>
           <h1>
             Law is attractive, but it shouldn&apos;t
@@ -314,7 +362,7 @@ export default function Home() {
           <p className="hero-subtitle">
             Enterprise-grade document analysis, legal research, and contract
             review, without the $1,200/seat price tag. Free, self-hosted, and
-            built by the community.
+            built by Quantera.
           </p>
 
           <div className="hero-terminal" id="get-started">
@@ -327,11 +375,18 @@ export default function Home() {
               <span>
                 <span className="prompt">$</span>
                 <span className="command">
-                  git clone{" "}
-                  <span style={{ filter: "blur(4px)", userSelect: "none", opacity: 0.5 }}>https://github.com/QuanteraAI/OpenSpecter.git</span>
+                  git clone https://github.com/QuanteraAI/OpenSpecter
                 </span>
               </span>
-              <button className="terminal-copy" onClick={handleComingSoon} aria-label="Copy command">
+              <button
+                className="terminal-copy"
+                aria-label="Copy command"
+                onClick={() => {
+                  navigator.clipboard.writeText("git clone https://github.com/QuanteraAI/OpenSpecter");
+                  setToastMessage("Copied to clipboard");
+                  setTimeout(() => setToastMessage(null), 3000);
+                }}
+              >
                 <CopyIcon />
               </button>
             </div>
@@ -373,7 +428,7 @@ export default function Home() {
           <h2>Everything you need to practice smarter.</h2>
           <p>
             The capabilities that enterprise tools charge thousands for,
-            open source, self-hosted, and yours to customize.
+            source-available, self-hosted, and yours to customize.
           </p>
         </div>
         <div className="features-bento-grid">
@@ -403,7 +458,7 @@ export default function Home() {
                       <div className="input-actions">
                         <span>+ Documents</span>
                         <span>✨ Workflows</span>
-                        <div className="model-selector">Claude Opus 4.7 ▾</div>
+                        <div className="model-selector">Claude Sonnet 4.5 ▾</div>
                         <div className="send-btn">→</div>
                       </div>
                     </div>
@@ -485,13 +540,14 @@ export default function Home() {
       </section>
 
       {/* ──── Jurisdictions & Shepardizing ──── */}
-      <section className="jurisdictions-section section fade-in">
+      <section className="jurisdictions-section section" id="jurisdictions">
         <div className="jurisdictions-container">
-          <div className="jurisdictions-left">
+          <div className="jurisdictions-left fade-in">
             <h2>Every citation. Verified across 178 jurisdictions.</h2>
             <p className="jurisdictions-subtitle">
               OpenSpecter cross-references 31 million+ legal documents to ensure every case you cite is still good law. Instant Shepardizing, built into every workflow.
             </p>
+            
             <div className="jurisdictions-stats">
               <div className="stat-item">
                 <span className="stat-number">178</span>
@@ -501,80 +557,68 @@ export default function Home() {
                 <span className="stat-number">31M+</span>
                 <span className="stat-label">Documents</span>
               </div>
-              <div className="stat-item">
-                <span className="stat-number">3</span>
-                <span className="stat-label">Source Types</span>
-              </div>
             </div>
-            <div className="jurisdictions-doctypes">
-              <span className="doctype-tag">Case Law</span>
-              <span className="doctype-tag">Legislation</span>
-              <span className="doctype-tag">Doctrine</span>
-            </div>
+
+            <ShepardizingMockup />
           </div>
           <div className="jurisdictions-right">
             <div className="jurisdiction-group">
-              <h4>Powerhouses</h4>
+              <h4>Global Powerhouses</h4>
               <div className="jurisdiction-chips">
-                <span className="j-chip">🇺🇸 US <em>15.6M</em></span>
-                <span className="j-chip">🇫🇷 France <em>2.7M</em></span>
-                <span className="j-chip">🇦🇹 Austria <em>1.4M</em></span>
-                <span className="j-chip">🇨🇭 Switzerland <em>947k</em></span>
-                <span className="j-chip">🇧🇷 Brazil <em>881k</em></span>
+                <span className="j-chip" style={{ "--density": "100%" } as any}>🇺🇸 US <em>15.6M</em></span>
+                <span className="j-chip" style={{ "--density": "45%" } as any}>🇫🇷 France <em>2.7M</em></span>
+                <span className="j-chip" style={{ "--density": "30%" } as any}>🇦🇹 Austria <em>1.4M</em></span>
+                <span className="j-chip" style={{ "--density": "25%" } as any}>🇨🇭 Switzerland <em>947k</em></span>
+                <span className="j-chip" style={{ "--density": "20%" } as any}>🇧🇷 Brazil <em>881k</em></span>
               </div>
             </div>
             <div className="jurisdiction-group">
-              <h4>Common Law</h4>
+              <h4>Common Law Systems</h4>
               <div className="jurisdiction-chips">
-                {["🇺🇸 US", "🇬🇧 UK", "🇮🇳 India", "🇦🇺 Australia", "🇨🇦 Canada", "🇸🇬 Singapore", "🇳🇿 NZ", "🇭🇰 HK", "🇲🇾 Malaysia", "🇵🇰 Pakistan", "🇿🇦 South Africa", "🇮🇪 Ireland"].map((c, i) => (
-                  <span key={i} className="j-chip small">{c}</span>
+                {[
+                  { n: "🇺🇸 US", d: "100%" },
+                  { n: "🇬🇧 UK", d: "35%" },
+                  { n: "🇮🇳 India", d: "25%" },
+                  { n: "🇦🇺 Australia", d: "20%" },
+                  { n: "🇨🇦 Canada", d: "18%" },
+                  { n: "🇸🇬 Singapore", d: "12%" },
+                  { n: "🇳🇿 NZ", d: "8%" },
+                  { n: "🇭🇰 HK", d: "10%" }
+                ].map((c, i) => (
+                  <span key={i} className="j-chip small" style={{ "--density": c.d } as any}>{c.n}</span>
                 ))}
               </div>
             </div>
             <div className="jurisdiction-group">
-              <h4>Civil Law</h4>
+              <h4>Civil Law Systems</h4>
               <div className="jurisdiction-chips">
-                {["🇫🇷 France", "🇩🇪 Germany", "🇮🇹 Italy", "🇪🇸 Spain", "🇧🇪 Belgium", "🇳🇱 Netherlands", "🇵🇹 Portugal", "🇵🇱 Poland", "🇦🇹 Austria", "🇨🇭 Switzerland", "🇧🇷 Brazil", "🇦🇷 Argentina", "🇲🇽 Mexico"].map((c, i) => (
-                  <span key={i} className="j-chip small">{c}</span>
+                {[
+                  { n: "🇫🇷 France", d: "45%" },
+                  { n: "🇩🇪 Germany", d: "40%" },
+                  { n: "🇮🇹 Italy", d: "25%" },
+                  { n: "🇪🇸 Spain", d: "22%" },
+                  { n: "🇧🇪 Belgium", d: "15%" },
+                  { n: "🇳🇱 Netherlands", d: "18%" },
+                  { n: "🇵🇱 Poland", d: "12%" },
+                  { n: "🇧🇷 Brazil", d: "20%" }
+                ].map((c, i) => (
+                  <span key={i} className="j-chip small" style={{ "--density": c.d } as any}>{c.n}</span>
                 ))}
               </div>
             </div>
             <div className="jurisdiction-group">
-              <h4>Supranational</h4>
+              <h4>Supranational & International</h4>
               <div className="jurisdiction-chips">
-                <span className="j-chip">🌐 INTL <em>494k</em></span>
-                <span className="j-chip">🇺🇳 UN <em>285k</em></span>
-                <span className="j-chip">🏛️ CoE <em>118k</em></span>
-                <span className="j-chip">🇪🇺 EU <em>115k</em></span>
-                <span className="j-chip">📊 OECD <em>452</em></span>
+                <span className="j-chip" style={{ "--density": "15%" } as any}>🌐 INTL <em>494k</em></span>
+                <span className="j-chip" style={{ "--density": "10%" } as any}>🇺🇳 UN <em>285k</em></span>
+                <span className="j-chip" style={{ "--density": "8%" } as any}>🏛️ CoE <em>118k</em></span>
+                <span className="j-chip" style={{ "--density": "8%" } as any}>🇪🇺 EU <em>115k</em></span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ──── Why Open Source ──── */}
-      <section className="why-os-section" id="what-is">
-        <div className="why-os-container">
-          <div className="why-os-left fade-in">
-            <h2>Why open source?</h2>
-            <p className="manifesto-text">
-              We believe that powerful legal technology should not be a luxury reserved for the largest firms. OpenSpecter is built in the open to ensure transparency, preserve data sovereignty, and give every lawyer access to enterprise-grade AI.
-            </p>
-          </div>
-          <div className="why-os-right">
-            {whyOpenSourceItems.map((item, i) => (
-              <div key={i} className="why-os-item fade-in">
-                <div className="os-item-number">0{i + 1}</div>
-                <div className="os-item-content">
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
 
 
@@ -585,7 +629,7 @@ export default function Home() {
         <div className="footer-cta-content">
           <h2>Legal AI shouldn&apos;t be a luxury.</h2>
           <p>
-            Open source. Self-hosted. Free forever. Start building with
+            Source available. Self-hosted. Free forever. Start building with
             OpenSpecter today.
           </p>
 
@@ -597,15 +641,16 @@ export default function Home() {
         <div className="footer-content" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div className="footer-brand">
             <div className="navbar-logo" style={{ color: "white" }}>
-              <BrandLogo style={{ width: 36, height: 36, marginRight: 8 }} />
+              <BrandLogo style={{ width: 32, height: 32 }} />
               OpenSpecter
             </div>
-            <p style={{ marginTop: 12 }}>Open-source legal AI for everyone.</p>
+            <p style={{ marginTop: 12 }}>Self-hosted legal AI for everyone.</p>
           </div>
           <div className="footer-links" style={{ display: "flex", gap: 24 }}>
             <a
-              href="#"
-              onClick={handleComingSoon}
+              href="https://github.com/QuanteraAI/OpenSpecter"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", transition: "color 0.2s" }}
             >
               View on GitHub
